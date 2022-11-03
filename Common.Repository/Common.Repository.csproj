@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common.Repository.EfCore\Common.Repository.EfCore.csproj" />
+    <ProjectReference Include="..\Common.Lists\Common.Lists.csproj" />
   </ItemGroup>
 
 </Project>

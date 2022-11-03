@@ -1,4 +1,4 @@
-﻿namespace Common.Repository.EfCore.UnitOfWork
+﻿namespace Common.Repository.UnitOfWork
 {
     public interface IUnitOfWorkScope
     {

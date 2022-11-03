@@ -1,8 +1,8 @@
-﻿using Common.Repository.EfCore.Pagination;
-using Common.Repository.EfCore.Sorting;
+﻿using Common.Lists.Pagination;
+using Common.Lists.Sorting;
 using System.Linq.Expressions;
 
-namespace Common.Repository.EfCore.Repository
+namespace Common.Repository.Repository
 {
     public interface IQueryRepository<TEntity> where TEntity : class
     {

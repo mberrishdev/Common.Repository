@@ -1,4 +1,4 @@
-﻿namespace Common.Repository.EfCore.Sorting
+﻿namespace Common.Lists.Sorting
 {
     public class SortingDetails<TEntity> where TEntity : class
     {

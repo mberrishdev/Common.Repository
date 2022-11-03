@@ -1,16 +1,17 @@
-﻿using Common.Repository.EfCore.UnitOfWork;
+﻿using Common.Repository.EfCore.Options;
 using Common.Repository.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Common.Repository.Extensions
+namespace Common.Repository.EfCore.Exceptions
 {
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddEfCoreDbContext<TDbContext>(this IServiceCollection serviceCollection,
             Action<DbContextOptionsBuilder>? optionsAction = null,
             ServiceLifetime contextLifetime = ServiceLifetime.Scoped,
-            ServiceLifetime optionsLifetime = ServiceLifetime.Scoped)
+            ServiceLifetime optionsLifetime = ServiceLifetime.Scoped,
+            Action<RepositoryOptions<TDbContext>> repositoryOptions = null)
             where TDbContext : DbContext
         {
             var contextType = typeof(TDbContext);
@@ -19,8 +20,12 @@ namespace Common.Repository.Extensions
 
 
             serviceCollection.AddDbContext<TDbContext>(optionsAction, contextLifetime, optionsLifetime);
-
             AddedDbContext.AddContextType<TDbContext>();
+
+            var repoOpts = new RepositoryOptions<TDbContext>();
+            repositoryOptions?.Invoke(repoOpts);
+            serviceCollection.AddSingleton(repoOpts);
+
             return serviceCollection;
         }
 

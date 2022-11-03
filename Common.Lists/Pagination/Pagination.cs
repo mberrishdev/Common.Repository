@@ -1,12 +1,11 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace Common.Repository.EfCore.Pagination
+namespace Common.Lists.Pagination
 {
     public static class Pagination
     {
-        public static async Task<PagedList<T>> Paginate<T>(this IQueryable<T> collection, int pageIndex = 1, int pageSize = 10, CancellationToken cancellationToken = default)
-            where T : class
+        public static async Task<PagedList<TItem>> Paginate<TItem>(this IQueryable<TItem> collection, int pageIndex = 1, int pageSize = 10, CancellationToken cancellationToken = default)
+            where TItem : class
         {
             if (collection == null)
                 return null;
@@ -18,14 +17,14 @@ namespace Common.Repository.EfCore.Pagination
                 pageSize = 10;
 
             if (!collection.Any())
-                return PagedList<T>.Empty;
+                return PagedList<TItem>.Empty;
 
             int totalResults = collection.Count();
             int totalPages = (int)Math.Ceiling((decimal)totalResults / pageSize);
 
             int skip = (pageIndex - 1) * pageSize;
-            List<T> data = await collection.Skip(skip).Take(pageSize).ToListAsync(cancellationToken);
-            return PagedList<T>.Create(data, pageIndex, pageSize, totalPages, totalResults);
+            List<TItem> data = await collection.Skip(skip).Take(pageSize).ToListAsync(cancellationToken);
+            return PagedList<TItem>.Create(data, pageIndex, pageSize, totalPages, totalResults);
         }
     }
 

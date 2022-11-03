@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Common.Repository
+namespace Common.Repository.EfCore
 {
     internal class AddedDbContext
     {

@@ -1,26 +1,26 @@
-﻿namespace Common.Repository.EfCore.Pagination
+﻿namespace Common.Lists.Pagination
 {
-    public class PagedList<T> : PagedListBase
+    public class PagedList<TItem> : PagedListBase
     {
-        public List<T> List { get; set; }
+        public List<TItem> List { get; set; }
         public bool IsEmpty => List == null || !List.Any();
 
         protected PagedList()
         {
-            List = new List<T>(0);
+            List = new List<TItem>(0);
         }
 
-        protected PagedList(List<T> source, int currentPage, int resultsPerPage, int totalPages, long totalResults)
+        protected PagedList(List<TItem> source, int currentPage, int resultsPerPage, int totalPages, long totalResults)
             : base(currentPage, resultsPerPage, totalPages, totalResults)
         {
             List = source;
         }
-        public static PagedList<T> Create(List<T> items, int currentPage, int resultsPerPage, int totalPages, long totalResults)
+        public static PagedList<TItem> Create(List<TItem> items, int currentPage, int resultsPerPage, int totalPages, long totalResults)
         {
-            return new PagedList<T>(items, currentPage, resultsPerPage, totalPages, totalResults);
+            return new PagedList<TItem>(items, currentPage, resultsPerPage, totalPages, totalResults);
         }
 
-        public static PagedList<T> Empty => new();
+        public static PagedList<TItem> Empty => new();
     }
 
     public abstract class PagedListBase

@@ -1,4 +1,4 @@
-﻿namespace Common.Repository.EfCore.Exceptions
+﻿namespace Common.Repository.Exceptions
 {
     public class UnitOfWorkException : Exception
     {

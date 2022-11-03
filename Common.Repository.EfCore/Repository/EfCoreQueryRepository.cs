@@ -1,21 +1,25 @@
-﻿using Common.Repository.EfCore.Pagination;
-using Common.Repository.EfCore.Repository;
-using Common.Repository.EfCore.Sorting;
+﻿using Common.Lists.Pagination;
+using Common.Lists.Sorting;
+using Common.Repository.EfCore.Options;
+using Common.Repository.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Common.Repository.Repository
+namespace Common.Repository.EfCore.Repository
 {
     public class EfCoreQueryRepository<TDbContext, TEntity> : IQueryRepository<TEntity>
         where TEntity : class
         where TDbContext : DbContext
     {
-        private readonly TDbContext _context;
+        protected readonly TDbContext _context;
+        protected readonly RepositoryOptions<TDbContext> _repositoryOptions;
+
         protected DbSet<TEntity> Table => _context.Set<TEntity>();
 
-        public EfCoreQueryRepository(TDbContext context)
+        public EfCoreQueryRepository(TDbContext context, RepositoryOptions<TDbContext> repositoryOptions)
         {
             _context = context;
+            _repositoryOptions = repositoryOptions;
         }
 
         public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, object>>[]? relatedProperties = null,

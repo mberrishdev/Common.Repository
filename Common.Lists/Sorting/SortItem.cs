@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Common.Repository.EfCore.Sorting
+namespace Common.Lists.Sorting
 {
     public class SortItem<TEntity>
     {
