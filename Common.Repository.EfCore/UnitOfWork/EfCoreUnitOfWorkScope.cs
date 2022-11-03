@@ -1,5 +1,5 @@
-﻿using Common.Repository.EfCore.Exceptions;
-using Common.Repository.EfCore.UnitOfWork;
+﻿using Common.Repository.EfCore;
+using Common.Repository.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -8,6 +8,7 @@ namespace Common.Repository.UnitOfWork
 {
     public class EfCoreUnitOfWorkScope : IUnitOfWorkScope
     {
+        private int _index = 0;
         private (IDbContextTransaction transaction, DbContext context) _transaction;
         private readonly IServiceProvider _serviceProvider;
         private DbContext _context;
@@ -25,8 +26,10 @@ namespace Common.Repository.UnitOfWork
         {
             if (IsCompleted)
                 throw new UnitOfWorkException("Unit of work scope is already completed");
+            if (_index == 0)
+                await BeginTransactionAsync(cancellationToken);
 
-            await BeginTransactionAsync(cancellationToken);
+            _index++;
         }
         private async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
         {
@@ -58,9 +61,12 @@ namespace Common.Repository.UnitOfWork
             if (IsCompleted)
                 return;
 
-            await SaveChangesAsync(cancellationToken);
-            await CommitTransactions(cancellationToken);
-            IsCompleted = true;
+            if (_index == 1)
+            {
+                await SaveChangesAsync(cancellationToken);
+                await CommitTransactions(cancellationToken);
+                IsCompleted = true;
+            }
         }
 
         private async Task SaveChangesAsync(CancellationToken cancellationToken = default)
