@@ -1,5 +1,4 @@
-﻿using Common.Repository.EfCore.UnitOfWork;
-
+﻿
 namespace Common.Repository.UnitOfWork
 {
     public class EfCoreUnitOfWork : IUnitOfWork, IDisposable
