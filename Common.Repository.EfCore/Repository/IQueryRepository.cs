@@ -1,4 +1,5 @@
-﻿using Common.Repository.EfCore.Sorting;
+﻿using Common.Repository.EfCore.Pagination;
+using Common.Repository.EfCore.Sorting;
 using System.Linq.Expressions;
 
 namespace Common.Repository.EfCore.Repository
@@ -10,6 +11,26 @@ namespace Common.Repository.EfCore.Repository
             SortingDetails<TEntity>? sortingDetails = null,
             int? skip = null,
             int? take = null,
+            CancellationToken cancellationToken = default);
+
+        Task<PagedList<TEntity>> GetListByPageAsync(int pageIndex, int pageSize,
+            Expression<Func<TEntity, object>>[]? relatedProperties = null,
+            Expression<Func<TEntity, bool>>? predicate = null,
+            SortingDetails<TEntity>? sortingDetails = null,
+            CancellationToken cancellationToken = default);
+
+        Task<TEntity> GetAsync(object key,
+            Expression<Func<TEntity, object>>[]? relatedProperties = null,
+            CancellationToken cancellationToken = default);
+
+        Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate,
+            Expression<Func<TEntity, object>>[]? relatedProperties = null,
+            CancellationToken cancellationToken = default);
+
+        Task<long> CountAsync(Expression<Func<TEntity, bool>>? predicate = null,
+            CancellationToken cancellationToken = default);
+
+        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>>? predicate = null,
             CancellationToken cancellationToken = default);
     }
 }
