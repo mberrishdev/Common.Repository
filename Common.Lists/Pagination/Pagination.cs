@@ -4,7 +4,7 @@ namespace Common.Lists.Pagination
 {
     public static class Pagination
     {
-        public static async Task<PagedList<TItem>> Paginate<TItem>(this IQueryable<TItem> collection, int pageIndex = 1, int pageSize = 10, CancellationToken cancellationToken = default)
+        public static async Task<PagedList<TItem>?> Paginate<TItem>(this IQueryable<TItem> collection, int pageIndex = 1, int pageSize = 10, CancellationToken cancellationToken = default)
             where TItem : class
         {
             if (collection == null)

@@ -11,7 +11,7 @@ namespace Common.Repository.EfCore.Exceptions
             Action<DbContextOptionsBuilder>? optionsAction = null,
             ServiceLifetime contextLifetime = ServiceLifetime.Scoped,
             ServiceLifetime optionsLifetime = ServiceLifetime.Scoped,
-            Action<RepositoryOptions<TDbContext>> repositoryOptions = null)
+            Action<RepositoryOptions<TDbContext>>? repositoryOptions = null)
             where TDbContext : DbContext
         {
             var contextType = typeof(TDbContext);
@@ -25,6 +25,8 @@ namespace Common.Repository.EfCore.Exceptions
             var repoOpts = new RepositoryOptions<TDbContext>();
             repositoryOptions?.Invoke(repoOpts);
             serviceCollection.AddSingleton(repoOpts);
+
+            //ToDo add repository
 
             return serviceCollection;
         }
