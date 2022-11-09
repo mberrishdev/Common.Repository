@@ -1,43 +1,27 @@
 ﻿namespace Common.Lists.Pagination
 {
-    public class PagedList<TItem> : PagedListBase
+    public class PagedList<TItem>
     {
-        public List<TItem> List { get; set; }
-        public bool IsEmpty => List == null || !List.Any();
+        public PagingDetails PagingDetails { get; }
 
-        protected PagedList()
+        public List<TItem> List { get; }
+
+        public PagedList(IQueryable<TItem> source, int pageIndex, int pageSize)
         {
-            List = new List<TItem>(0);
+            PagingDetails = new PagingDetails(pageIndex, pageSize, source?.Count() ?? 0);
+            List = source?.Skip(PagingDetails.PageIndex * PagingDetails.PageSize).Take(PagingDetails.PageSize).ToList();
         }
 
-        protected PagedList(List<TItem> source, int currentPage, int resultsPerPage, int totalPages, long totalResults)
-            : base(currentPage, resultsPerPage, totalPages, totalResults)
+        public PagedList(IEnumerable<TItem> source, int pageIndex, int pageSize, int totalCount)
         {
-            List = source;
-        }
-        public static PagedList<TItem> Create(List<TItem> items, int currentPage, int resultsPerPage, int totalPages, long totalResults)
-        {
-            return new PagedList<TItem>(items, currentPage, resultsPerPage, totalPages, totalResults);
+            PagingDetails = new PagingDetails(pageIndex, pageSize, totalCount);
+            List = source?.ToList();
         }
 
-        public static PagedList<TItem> Empty => new();
-    }
-
-    public abstract class PagedListBase
-    {
-        public int CurrentPage { get; set; }
-        public int ResultsPerPage { get; set; }
-        public int TotalPages { get; set; }
-        public long TotalResults { get; set; }
-        protected PagedListBase()
+        public PagedList(IEnumerable<TItem> source, PagingDetails pageDetails)
         {
-        }
-        protected PagedListBase(int currentPage, int resultsPerPage, int totalPages, long totalResults)
-        {
-            CurrentPage = currentPage > totalPages ? totalPages : currentPage;
-            ResultsPerPage = resultsPerPage;
-            TotalPages = totalPages;
-            TotalResults = totalResults;
+            PagingDetails = pageDetails;
+            List = source?.ToList();
         }
     }
 }

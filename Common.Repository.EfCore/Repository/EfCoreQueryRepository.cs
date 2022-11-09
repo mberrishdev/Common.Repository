@@ -39,8 +39,8 @@ namespace Common.Repository.EfCore.Repository
         }
 
         public async Task<PagedList<TEntity>> GetListByPageAsync(int pageIndex, int pageSize,
+                        Expression<Func<TEntity, bool>>? predicate = null,
             Expression<Func<TEntity, object>>[]? relatedProperties = null,
-            Expression<Func<TEntity, bool>>? predicate = null,
             SortingDetails<TEntity>? sortingDetails = null,
             CancellationToken cancellationToken = default)
         {
@@ -58,8 +58,17 @@ namespace Common.Repository.EfCore.Repository
             if (sortingDetails?.SortItem?.SortBy != null && sortingDetails.SortItem.SortDirection == SortDirection.DESC)
                 query = query.OrderByDescending(sortingDetails.SortItem.SortBy);
 
+            var count = await query.CountAsync(cancellationToken: cancellationToken);
+            var pagingDetails = new PagingDetails(pageIndex, pageSize, count);
 
-            return await query.Paginate<TEntity>(pageIndex, pageSize, cancellationToken);
+            if (count == 0)
+                return new PagedList<TEntity>(new List<TEntity>(), pagingDetails.PageIndex, pagingDetails.PageSize, count);
+
+            var list = await query.Skip(pagingDetails.PageIndex * pagingDetails.PageSize)
+                                  .Take(pagingDetails.PageSize)
+                                  .ToListAsync(cancellationToken: cancellationToken);
+
+            return new PagedList<TEntity>(list, pagingDetails);
         }
 
         public Task<TEntity> GetAsync(object key, Expression<Func<TEntity, object>>[]? relatedProperties = null, CancellationToken cancellationToken = default)

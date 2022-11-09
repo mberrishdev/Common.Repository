@@ -14,8 +14,8 @@ namespace Common.Repository.Repository
             CancellationToken cancellationToken = default);
 
         Task<PagedList<TEntity>> GetListByPageAsync(int pageIndex, int pageSize,
-            Expression<Func<TEntity, object>>[]? relatedProperties = null,
             Expression<Func<TEntity, bool>>? predicate = null,
+            Expression<Func<TEntity, object>>[]? relatedProperties = null,
             SortingDetails<TEntity>? sortingDetails = null,
             CancellationToken cancellationToken = default);
 
