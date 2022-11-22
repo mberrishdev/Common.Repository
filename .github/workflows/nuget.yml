@@ -2,9 +2,8 @@ name: "Deploy to NuGet"
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    tags:
+    - 'v*'
 
 env:
   PROJECT_PATH: 'Common.Repository/Common.Repository.csproj'
