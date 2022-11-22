@@ -3,6 +3,7 @@ using Common.Lists.Sorting;
 using Common.Repository.EfCore.Options;
 using Common.Repository.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
 namespace Common.Repository.EfCore.Repository
@@ -25,22 +26,23 @@ namespace Common.Repository.EfCore.Repository
         }
         #endregion
 
-        public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, object>>[]? relatedProperties = null,
+        public async Task<List<TEntity>> GetListAsync(List<Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>>? relatedProperties = null,
             Expression<Func<TEntity, bool>>? predicate = null,
             SortingDetails<TEntity>? sortingDetails = null,
             int? skip = null, int? take = null,
             CancellationToken cancellationToken = default)
         {
-            IQueryable<TEntity> query = Table;
+            IQueryable<TEntity> query = Table.AsNoTracking();
+
             if (relatedProperties != null)
-                query = relatedProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty)).AsNoTracking();
+                query = relatedProperties.Aggregate(query, (current, include) => include(current));
 
             return await GetListAsync(query, predicate, sortingDetails, skip, take, cancellationToken);
         }
 
         public async Task<PagedList<TEntity>> GetListByPageAsync(int pageIndex, int pageSize,
                         Expression<Func<TEntity, bool>>? predicate = null,
-            Expression<Func<TEntity, object>>[]? relatedProperties = null,
+            List<Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>>? relatedProperties = null,
             SortingDetails<TEntity>? sortingDetails = null,
             CancellationToken cancellationToken = default)
         {
@@ -50,7 +52,7 @@ namespace Common.Repository.EfCore.Repository
                 query = query.Where(predicate);
 
             if (relatedProperties != null)
-                query = relatedProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+                query = relatedProperties.Aggregate(query, (current, include) => include(current));
 
             if (sortingDetails?.SortItem?.SortBy != null && sortingDetails.SortItem.SortDirection == SortDirection.ASC)
                 query = query.OrderBy(sortingDetails.SortItem.SortBy);
@@ -71,20 +73,17 @@ namespace Common.Repository.EfCore.Repository
             return new PagedList<TEntity>(list, pagingDetails);
         }
 
-        public Task<TEntity> GetAsync(object key, Expression<Func<TEntity, object>>[]? relatedProperties = null, CancellationToken cancellationToken = default)
-        {
-            //TODO_RE
-            throw new NotImplementedException();
-        }
-
-        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, object>>[]? relatedProperties = null, CancellationToken cancellationToken = default)
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate,
+            List<Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>>? relatedProperties = null,
+            CancellationToken cancellationToken = default)
         {
             IQueryable<TEntity> query = Table.AsNoTracking();
 
             if (relatedProperties != null)
-                query = relatedProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+                query = relatedProperties.Aggregate(query, (current, include) => include(current));
 
-            return await query.FirstOrDefaultAsync(predicate, cancellationToken);
+            return await query.FirstOrDefaultAsync(predicate,
+                                                   cancellationToken);
         }
 
         public async Task<long> CountAsync(Expression<Func<TEntity, bool>>? predicate = null, CancellationToken cancellationToken = default)
