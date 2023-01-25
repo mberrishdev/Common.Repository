@@ -4,15 +4,15 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>Mberish.Common.Repository</PackageId>
+    <Authors>MBerrish</Authors>
+    <Product>Mberrish Common repository</Product>
+    <Description>This package makes it easier to work with EF Core</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Common.Lists\Common.Lists.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using Common.Repository.EfCore.Exceptions;
+﻿using Common.Repository.EfCore.Extensions;
 using Common.Repository.EfCore.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

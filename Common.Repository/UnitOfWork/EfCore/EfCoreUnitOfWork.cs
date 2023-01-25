@@ -1,5 +1,5 @@
 ﻿
-namespace Common.Repository.UnitOfWork
+namespace Common.Repository.UnitOfWork.EfCore
 {
     public class EfCoreUnitOfWork : IUnitOfWork, IDisposable
     {

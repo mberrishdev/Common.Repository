@@ -1,12 +1,11 @@
-﻿using Common.Lists.Pagination;
-using Common.Lists.Sorting;
-using Common.Repository.EfCore.Options;
-using Common.Repository.Repository;
+﻿using Common.Repository.EfCore.Options;
+using Common.Repository.Lists.Pagination;
+using Common.Repository.Lists.Sorting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace Common.Repository.EfCore.Repository
+namespace Common.Repository.Repository.EfCore
 {
     public class EfCoreQueryRepository<TDbContext, TEntity> : IQueryRepository<TEntity>
         where TEntity : class

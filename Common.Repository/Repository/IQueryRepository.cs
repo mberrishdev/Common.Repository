@@ -1,5 +1,5 @@
-﻿using Common.Lists.Pagination;
-using Common.Lists.Sorting;
+﻿using Common.Repository.Lists.Pagination;
+using Common.Repository.Lists.Sorting;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 

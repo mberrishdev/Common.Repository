@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Common.Repository.UnitOfWork
+namespace Common.Repository.UnitOfWork.EfCore
 {
     public class EfCoreUnitOfWorkScope : IUnitOfWorkScope
     {

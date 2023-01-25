@@ -5,21 +5,17 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Repository", "Common.Repository\Common.Repository.csproj", "{E19D7732-DFF7-4923-ACA6-80F4F6C331BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Repository.EfCore", "Common.Repository.EfCore\Common.Repository.EfCore.csproj", "{B5261E43-172A-4F36-B170-13129BDD5017}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Lists", "Common.Lists\Common.Lists.csproj", "{DC702D99-EDF4-44D4-9409-80EDA02A9A32}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{058964B8-3149-4D8E-A47F-B4D0AA93D8F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{C9559AF0-D532-494D-AA8F-2270C059E7E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.API", "Sample\Sample.API\Sample.API.csproj", "{9451380E-CE31-4008-949F-90BC9DF172CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.API", "Sample\Sample.API\Sample.API.csproj", "{9451380E-CE31-4008-949F-90BC9DF172CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Application", "Sample\Sample.Application\Sample.Application.csproj", "{732833E2-F951-4EC3-9282-687A03D7929C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Application", "Sample\Sample.Application\Sample.Application.csproj", "{732833E2-F951-4EC3-9282-687A03D7929C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Domain", "Sample\Sample.Domain\Sample.Domain.csproj", "{BC9802F7-33B2-43C4-8A66-CC78F3D530A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Domain", "Sample\Sample.Domain\Sample.Domain.csproj", "{BC9802F7-33B2-43C4-8A66-CC78F3D530A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Persistence", "Sample\Sample.Persistence\Sample.Persistence.csproj", "{DAF87D51-2BFD-49C9-8C21-3AC8AAAD488A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Persistence", "Sample\Sample.Persistence\Sample.Persistence.csproj", "{DAF87D51-2BFD-49C9-8C21-3AC8AAAD488A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +27,6 @@ Global
 		{E19D7732-DFF7-4923-ACA6-80F4F6C331BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E19D7732-DFF7-4923-ACA6-80F4F6C331BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E19D7732-DFF7-4923-ACA6-80F4F6C331BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5261E43-172A-4F36-B170-13129BDD5017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5261E43-172A-4F36-B170-13129BDD5017}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5261E43-172A-4F36-B170-13129BDD5017}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5261E43-172A-4F36-B170-13129BDD5017}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DC702D99-EDF4-44D4-9409-80EDA02A9A32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC702D99-EDF4-44D4-9409-80EDA02A9A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC702D99-EDF4-44D4-9409-80EDA02A9A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC702D99-EDF4-44D4-9409-80EDA02A9A32}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9451380E-CE31-4008-949F-90BC9DF172CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9451380E-CE31-4008-949F-90BC9DF172CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9451380E-CE31-4008-949F-90BC9DF172CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,8 +49,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E19D7732-DFF7-4923-ACA6-80F4F6C331BF} = {058964B8-3149-4D8E-A47F-B4D0AA93D8F9}
-		{B5261E43-172A-4F36-B170-13129BDD5017} = {058964B8-3149-4D8E-A47F-B4D0AA93D8F9}
-		{DC702D99-EDF4-44D4-9409-80EDA02A9A32} = {058964B8-3149-4D8E-A47F-B4D0AA93D8F9}
 		{9451380E-CE31-4008-949F-90BC9DF172CF} = {C9559AF0-D532-494D-AA8F-2270C059E7E7}
 		{732833E2-F951-4EC3-9282-687A03D7929C} = {C9559AF0-D532-494D-AA8F-2270C059E7E7}
 		{BC9802F7-33B2-43C4-8A66-CC78F3D530A7} = {C9559AF0-D532-494D-AA8F-2270C059E7E7}

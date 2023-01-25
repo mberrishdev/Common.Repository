@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common.Repository.EfCore\Common.Repository.EfCore.csproj" />
+    <ProjectReference Include="..\..\Common.Repository\Common.Repository.csproj" />
     <ProjectReference Include="..\Sample.Domain\Sample.Domain.csproj" />
   </ItemGroup>
 

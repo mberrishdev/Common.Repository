@@ -1,11 +1,10 @@
-﻿using Common.Lists.Sorting;
-using Common.Repository.EfCore.Options;
-using Common.Repository.Repository;
+﻿using Common.Repository.EfCore.Options;
+using Common.Repository.Lists.Sorting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace Common.Repository.EfCore.Repository
+namespace Common.Repository.Repository.EfCore
 {
     public class EFCoreRepository<TDbContext, TEntity> : EfCoreQueryRepository<TDbContext, TEntity>, IRepository<TEntity>
         where TEntity : class
