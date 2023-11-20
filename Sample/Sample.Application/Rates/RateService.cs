@@ -22,15 +22,36 @@ namespace Sample.Application.Rates
         {
             var ratesFromUser = command.Rates;
 
-            using (var scope = await _unitOfWork.CreateScopeAsync(cancellationToken))
+            using var scope = await _unitOfWork.CreateScopeAsync(cancellationToken);
+            foreach (var rateEntity in ratesFromUser.Select(rate => new Rate(rate)))
             {
-                foreach (var rate in ratesFromUser)
-                {
-                    var rateEntity = new Rate(rate);
-                    await _repository.InsertAsync(rateEntity, cancellationToken);
-                }
-                await scope.CompletAsync(cancellationToken);
+                await _repository.InsertAsync(rateEntity, cancellationToken);
             }
+            await scope.CompletAsync(cancellationToken);
+        }
+
+        public async Task<List<Rate>> GetRates(CancellationToken cancellationToken)
+        {
+            return await _queryRepository.GetListAsync(cancellationToken: cancellationToken);
+        }
+
+        public async Task<Rate> GetById(int id, CancellationToken cancellationToken)
+        {
+            return await _queryRepository.GetAsync(predicate:x=>x.Id == id, cancellationToken: cancellationToken);
+        }
+
+        public async Task Update(int id, SaveRateCommand command, CancellationToken cancellationToken)
+        {
+            var rate =  await _repository.GetForUpdateAsync(predicate:x=>x.Id == id, cancellationToken: cancellationToken);
+
+            rate.Update(command);
+            await _repository.UpdateAsync(rate, cancellationToken);
+        }
+
+        public async Task Delete(int id, CancellationToken cancellationToken)
+        {
+            var rate =  await _repository.GetForUpdateAsync(predicate:x=>x.Id == id, cancellationToken: cancellationToken);
+            await _repository.DeleteAsync(rate, cancellationToken);
         }
     }
 }

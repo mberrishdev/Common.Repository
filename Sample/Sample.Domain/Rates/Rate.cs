@@ -31,5 +31,14 @@ namespace Sample.Domain.Rates
             ValidFromDate = rate.ValidFromDate;
         }
 
+        public void Update(SaveRateCommand command)
+        {
+            Iso1 = command.Iso1;
+            Iso2 = command.Iso2;
+            CurrentRate = command.CurrentRate;
+            Quantity = command.Quantity;
+            Diff = command.Diff;
+            ValidFromDate = command.ValidFromDate;
+        }
     }
 }
